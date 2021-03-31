@@ -7,6 +7,7 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import VueWechatTitle from 'vue-wechat-title'
 import echarts from "echarts";
+import store form '../store'
 Vue.prototype.$echarts = echarts;
 
 Vue.config.productionTip = false
