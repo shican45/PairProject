@@ -13,6 +13,24 @@
               title="用户注册"
               :visible.sync="innerVisible"
               append-to-body>
+               <div  id="bg">
+              <div class="inside">
+                <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+                  <el-form-item label="用户名" prop="user" class="label_color">
+                      <el-input v-model.number="ruleForm.user"></el-input>
+                    </el-form-item>
+                  <el-form-item label="密码" prop="newPwd" class="label_color">
+                    <el-input type="password" v-model="ruleForm.newPwd" autocomplete="off"></el-input>
+                  </el-form-item>
+                  <el-form-item label="密码" prop="confirmPwd" class="label_color">
+                    <el-input type="password" v-model="ruleForm.confirmPwd" autocomplete="off"></el-input>
+                  </el-form-item>
+                  <el-form-item>
+                    <el-button type="primary" style="width: 320px;" @click="registerForm('ruleForm')">立即注册</el-button>
+                  </el-form-item>
+                </el-form>
+              </div>
+            </div>
             </el-dialog>
         <div id="bg">
 
@@ -88,6 +106,25 @@
   export default {
     name: 'App',
     data() {
+      var validatePass = (rule, value, callback) => {
+              if (value === '') {
+                      callback(new Error('请输入密码'));
+              } else {
+                if (this.ruleForm.confirmPwd !== '') {
+                    this.$refs.ruleForm.validateField('confirmPwd');
+                }
+                callback();
+              }
+            };
+            var validatePass2 = (rule, value, callback) => {
+                if (value === '') {
+                    callback(new Error('请再次输入密码'));
+                } else if (value !== this.ruleForm.newPwd) {
+                    callback(new Error('两次输入密码不一致!'));
+                } else {
+                    callback();
+                }
+            };
       var validateUser = (rule, value, callback) => {
         if (value === '') {
           callback(new Error('用户名不能为空！'));
@@ -108,17 +145,29 @@
         count:'3',
         ruleForm: {
           user: '',
-          pass: ''
+          pass: '',
+          newPwd: '',
+          confirmPwd:''
         },
         url:'https://ftp.bmp.ovh/imgs/2021/03/676e04ec8047d480.jpg',
         rules: {
+          newPwd: [
+            { required: true, message: '请输入密码', trigger: 'blur' },
+            { min: 6, max: 16, message: '长度在 6 到 16 个字符', trigger: 'blur' },
+            { validator: validatePass, trigger: 'blur' }
+          ],
+          confirmPwd:[
+            { required: true, message: '请确认密码', trigger: 'blur' },
+            { min: 6, max: 16, message: '长度在 6 到 16 个字符', trigger: 'blur' },
+            { validator: validatePass2, trigger: 'blur', required: true }
+          ],
           user: [
             { validator: validateUser, trigger: 'blur' }
           ],
           pass: [
             { validator: validatePass, trigger: 'blur' }
-          ]
-        }
+          ],
+        },
       };
     },
     methods: {
@@ -144,6 +193,22 @@
 
           } else {
               this.$message.error('登录失败!!');
+            return false;
+          }
+        });
+      },
+      registerForm(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            
+            this.$message({
+                message: '注册成功!',
+                type: 'success'
+            });
+             this.innerVisible=false;
+
+          } else {
+              this.$message.error('注册失败!!');
             return false;
           }
         });
