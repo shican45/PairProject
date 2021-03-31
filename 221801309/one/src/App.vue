@@ -151,6 +151,16 @@
         },
         url:'https://ftp.bmp.ovh/imgs/2021/03/676e04ec8047d480.jpg',
         rules: {
+          newPwd: [
+            { required: true, message: '请输入密码', trigger: 'blur' },
+            { min: 6, max: 16, message: '长度在 6 到 16 个字符', trigger: 'blur' },
+            { validator: validatePass, trigger: 'blur' }
+          ],
+          confirmPwd:[
+            { required: true, message: '请确认密码', trigger: 'blur' },
+            { min: 6, max: 16, message: '长度在 6 到 16 个字符', trigger: 'blur' },
+            { validator: validatePass2, trigger: 'blur', required: true }
+          ],
           user: [
             { validator: validateUser, trigger: 'blur' }
           ],
@@ -210,12 +220,10 @@
           const timejump = 1;
           if(!this.timer){
             this.count = timejump ;
-            this.show = false;
             this.timer = setInterval(()=>{
             if(this.count > 0 && this.count <= timejump ){
               this.count--;
             }else{
-              this.show = true;
               clearInterval(this.timer);
               this.timer = null;
               //跳转的页面写在此处
