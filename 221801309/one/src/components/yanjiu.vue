@@ -27,7 +27,7 @@ export default {
           {
             name: "热词",
             type: "bar",
-            data: [30, 20, 18, 20, 28, 25]
+            data: [30, 21, 18, 20, 28, 25]
           }
         ]
       };
