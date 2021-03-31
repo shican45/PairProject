@@ -11,9 +11,9 @@
           charts: "",
           opinion: ["ICCV", "CVPR", "ECCV"],
           opinionData: [
-            { value: 120, name: "ICCV", itemStyle: "#b32730" },
-            { value: 180, name: "CVPR", itemStyle: "#37d125" },
-            { value: 350, name: "ECCV", itemStyle: "#4d43e1" }
+            { value: 120, name: "ICCV", itemStyle: "#69b2b3" },
+            { value: 180, name: "CVPR", itemStyle: "#d1bd58" },
+            { value: 350, name: "ECCV", itemStyle: "#de81e1" }
           ]
         };
       },
