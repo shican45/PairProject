@@ -18,11 +18,7 @@ const store = new Vuex.Store({
     }
   },
   actions: {
-    getData ({ commit, state }, params) {
-      let name = 'web秀 Vuex+localStorage数据状态持久化';
-      commit('setData', name)
     }
 })
 
 export default store
-
